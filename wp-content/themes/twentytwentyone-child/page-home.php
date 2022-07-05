@@ -17,9 +17,11 @@ get_header();
 <body>
     <div class="home_page">
         <div class="hero_bg">
-            <img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/home-background.png" alt="">
+            <?php if( get_field('home_background') ): ?>
+                    <img src="<?php the_field('home_background'); ?>" />
+            <?php endif; ?>
            <div class="banner-title">
-           <?php if( get_field('banner_title') ): ?>
+                 <?php if( get_field('banner_title') ): ?>
                         <h1><?php the_field('banner_title'); ?></h1>
                 <?php endif; ?>
                 <div class="banner-footer">
@@ -40,14 +42,24 @@ get_header();
         <div class="container">
                 <div class="about">
                     <div class="column1">
-                        <h1>We're on a mission to create technology that changes business for the better  </h1>
+                    <?php if( get_field('about_text_1') ): ?>
+                             <h1 class="medium"><?php the_field('about_text_1'); ?></h1>
+                        <?php endif; ?>
                     </div>
                     <div class="column2">
-                        <h1>Maybe you’ve an epic site build, or a functionality funk. Perhaps you’ve mountains of content to manage. Is your UX not taking people on the right journey? Does your in-house team need a boost? Does your entire business need digital transformation?
-
-                        We love to find the strategy, engineering and design that will solve your problems. And there’s a good chance we’ll have done something like it before.</h1>
+                    <?php if( get_field('about_text_2') ): ?>
+                             <h1 class="medium"><?php the_field('about_text_2'); ?></h1>
+                        <?php endif; ?>
                     <div class="view_our_services">
-                        <a href="http://localhost/syntactics/day1/wordpress/services/">VIEW OUR SERVICES</a>
+                    <?php 
+                        $link = get_field('view_our_service');
+                        if( $link ): 
+                            $link_url = $link['url'];
+                            $link_title = $link['title'];
+                            $link_target = $link['target'] ? $link['target'] : '_blank';
+                            ?>
+                            <a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -56,22 +68,30 @@ get_header();
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                                 <div class="card">
-                                    <img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/sllider1.png" alt="">
+                                        <?php if( get_field('card_slider_1') ): ?>
+                                            <img src="<?php the_field('card_slider_1'); ?>" />
+                                    <?php endif; ?>
                                 </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="card">
-                                <img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/sllider2.png" alt="">
+                                     <?php if( get_field('card_slider_2') ): ?>
+                                            <img src="<?php the_field('card_slider_2'); ?>" />
+                                    <?php endif; ?>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="card">
-                                <img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/sllider3.png" alt="">
+                                    <?php if( get_field('card_slider_3') ): ?>
+                                            <img src="<?php the_field('card_slider_3'); ?>" />
+                                    <?php endif; ?>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="card">
-                            <img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/sllider4.png" alt="">
+                                      <?php if( get_field('card_slider_4') ): ?>
+                                            <img src="<?php the_field('card_slider_4'); ?>" />
+                                    <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+
 <div class="footer">
   <div class="container container-fluid footer-container">
       <div class="col-1-footer">
@@ -48,21 +49,37 @@
               <?php endif; ?>
           </div>
           <div class="media_footer">
-          <?php 
-                wp_nav_menu(
-                  array(
-                    'menu'=>'social-icon',
-                    'container'=>'',
-                    'menu_class'=>'',
-                    'theme_location'=>'primary',
-                    // 'items_wrap'=>'<ul  class="" >%3$s</ul>'
+            <?php 
+                  wp_nav_menu(
+                    array(
+                      'menu'=>'social-icon',
+                      'container'=>'',
+                      'menu_class'=>'',
+                      'theme_location'=>'primary',
+                      // 'items_wrap'=>'<ul  class="" >%3$s</ul>'
+                    )
                   )
-                )
-                ?>
+                  ?>
           </div>
+      </div>
+      <div class="terms-footer">
+        <div class="divider"></div>
+        <div class="terms">
+          <div class="left">
+          <?php if( get_field('terms') ): ?>
+                  <h1><?php the_field('terms'); ?></h1>
+            <?php endif; ?>
+          </div>
+          <div class="right">
+          <?php if( get_field('terms2') ): ?>
+                  <h1><?php the_field('terms2'); ?></h1>
+            <?php endif; ?>
+          </div>
+        </div>
       </div>
       </div>
 </div>
+
 <button
         type="button"
         class="btn  btn-floating btn-lg"
@@ -70,8 +87,14 @@
         >
 <i class="fas fa-arrow-up"></i>
 </button>
-<?php wp_footer();?>
-</body>
+
+<button
+        type="button"
+        class="btn  btn-floating btn-lg"
+        id="send-message">
+        <i class="fas fa-comment-alt"></i>
+</button>
+
 
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -87,3 +110,6 @@
 
   
 </script>
+<?php wp_footer();?>
+
+</body>

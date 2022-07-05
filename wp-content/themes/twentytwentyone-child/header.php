@@ -16,7 +16,11 @@
 <nav class="navbar navbar-expand-sm  " id="navbar-header">
   <div class="container container-fluid">
     <div class="navbar-header">
-    <a class="navbar-brand" href="#"><img src="http://localhost/syntactics/day1/wordpress/wp-content/uploads/2022/06/Logo.png" alt="" class="img-fluid"></a>
+    <a class="navbar-brand" href="#">
+    <?php if( get_field('logo') ): ?>
+              <img src="<?php the_field('logo'); ?>" />
+     <?php endif; ?>
+    </a>
     </div>
  
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">

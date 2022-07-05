@@ -2,7 +2,7 @@
 
 function my_plugin_add_stylesheet() {
 wp_dequeue_style( 'twenty-twenty-one-style' );
-    wp_enqueue_style( 'my-style', get_stylesheet_directory_uri() . '/style.css', false, '1.2', 'all' );
+    wp_enqueue_style( 'my-style', get_stylesheet_directory_uri() . '/style.css', false, '1.8', 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'my_plugin_add_stylesheet',11 );
 
@@ -22,5 +22,6 @@ function enqueue_load_fa() {
 wp_enqueue_style( 'load-fa', 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+
 
 ?>

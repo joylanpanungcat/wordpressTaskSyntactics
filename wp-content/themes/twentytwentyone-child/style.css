@@ -345,6 +345,7 @@
         flex: 50%;
         text-align: end;
     }
+           
     .insights .insights-header .right a{
         font-size: 13px;
         font-family: "Raleway SemiBold";
@@ -600,6 +601,28 @@
         }
         .footer .col-1-footer {
             flex: 46%;
+        }
+        .services{
+            gap: 50px;
+           display: flex;
+        }
+        .services .card{
+            width: 400px;
+            height: 279px;
+        }
+        .services .card .title{
+            position: absolute;
+            bottom: 0;
+            background: #767676;
+            width: 100%;
+            padding: 18px;
+            text-align: center;
+        }
+        .services .card .title a{
+            font-size: 18px;
+            text-transform: capitalize;
+            color: #fff;
+            text-decoration: none;
         }
     }
     @media screen and (max-width: 1200px) {

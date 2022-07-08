@@ -185,6 +185,7 @@ get_header();
         </div>
     </div>
 </div>
+
 <div class="team">
     <div class="image_1">
     <?php if( get_field('meet_out_team1') ): ?>
@@ -195,7 +196,7 @@ get_header();
     <?php if( get_field('meet_out_team2') ): ?>
             <img src="<?php the_field('meet_out_team2'); ?>"  class="img-fluid"/>
     <?php endif; ?>
-    </div>
+    </div> 
 </div>
 <div class="contact-about">
       <?php if( get_field('contact_text_1') ): ?>
@@ -210,4 +211,4 @@ get_header();
 <?php 
 get_footer(); 
 ?>
-</html>
+</html> 

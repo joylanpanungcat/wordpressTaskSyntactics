@@ -22,6 +22,14 @@ class SimpleContactForm{
 
         //add short code 
         add_shortcode('simple-contact-form', array($this, 'load_shortcode'));
+
+        //load scripts
+        add_action('wp_footer',array( $this, 'load_scripts'));
+
+        //Register REST APi 
+        add_action('rest_api_init',array($this, 'register_rest_api'));
+
+        
     }
 
     public function create_custom_post_type(){
@@ -54,12 +62,87 @@ class SimpleContactForm{
             'simple-contact-form',
             plugin_dir_url(__FILE__).'js/simple_contact_form.js',
             array('jquery'),
-            false,
+            3,
             true
         );
     }
     public function load_shortcode(){
-        return "Hello, the shortcode is working";
+    {?> 
+    <div class="contact-form">
+    <form id='submit-form'>
+        <div class="form-group mb-2">
+            <label for="">Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" class="form-control">
+        </div>
+        <div class="form-group mb-2">
+            <label for="">Email</label>
+            <input type="email" name="email" placeholder="email" class="form-control">
+        </div>
+        <div class="form-group mb-2">
+            <label for="">Message</label>
+           <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Send Message</button>
+    </form>
+    </div>
+
+    <?php }
+}
+public function load_scripts(){
+    ?>
+        <script>
+        (function($) {
+            $(document).ready(function() {
+                var nonce = '<?php echo wp_create_nonce('wp_rest');?>';
+                        $(document).on('click','#send-message',function(e){
+                            e.preventDefault();
+                            $('#contact-modal').modal('show');
+                        });
+                        
+                        $(document).on('submit','#submit-form',function(e){
+                            e.preventDefault();
+                            var form=  $(this).serialize();
+
+                            $.ajax({
+                                    method: 'post',
+                                    url: '<?php echo get_rest_url(null,'simple-contact-form/v1/send-email') ?>',
+                                    headers: { 'X-WP-Nonce': nonce},
+                                    data: form,
+                                    dataType: 'json',
+                                    success:function(data){
+                                        $('#contact-modal').modal('hide');
+                                        toastr.success(data);
+                                    }
+
+                            })
+                        })
+        })
+    })(jQuery);
+        </script>
+    <?php
+}
+public function register_rest_api(){
+    register_rest_route('simple-contact-form/v1','send-email',array(
+        'methods'=> 'POST',
+        'callback'=> array($this, 'handle_contact_form')
+    ));
+}
+public function handle_contact_form($data){
+    $headers = $data->get_headers();
+    $params= $data->get_params();
+    $nonce = $headers['x_wp_nonce'][0];
+
+    if(!wp_verify_nonce( $nonce, 'wp_rest' )){
+        return new WP_REST_Response('Message not sent', 422);
+    }
+    $post_id = wp_insert_post([
+        'post_type'=>'simple_contact_form',
+        'post_title'=> 'contact enquiry',
+        'post_status'=> 'publish'
+    ]);
+    if($post_id){
+        return "Message Send Successfully ";
     }
 }
-new SimpleContactForm;
+}
+ new SimpleContactForm;
